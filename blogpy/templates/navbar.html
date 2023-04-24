@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary container">
+  <a class="navbar-brand" href="{{ url_for('home') }}">WaySystem</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('home') }}">Início <span class="sr-only">(página atual)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('usuarios') }}">Usuários</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('contato') }}">Contato</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav d-flex">
+      {% if current_user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('criar_post') }}">Post</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('perfil') }}">Perfil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('sair') }}">Sair</a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('login') }}">Entrar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('criarconta') }}">Criar Conta</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>

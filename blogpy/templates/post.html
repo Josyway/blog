@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="container">
+
+        <div class="row border mt-2 p-2 post">
+             <div class="col col-2">
+                <div class="image container" ><img src="{{ url_for('static', filename='fotos_perfil/{}'.format(post.autor.foto_perfil)) }}" class="rounded" width="120" ></div>
+                 <strong>{{ post.autor.username }}</strong>
+                 <div class="row justify-content-center">
+                    {% for curso in post.autor.cursos.split(';') %}
+                        <button type="button" class="btn btn-success m-1" disabled>{{ curso }}</button>
+                    {% endfor %}
+                </div>
+             </div>
+             <div class="col col-9">
+                 <h3>{{ post.titulo }}
+                 <small class="text-muted" style="font-size: 15px"> - Data de Criação {{post.data_criacao.strftime('%d/%m/%Y')}}</small>
+                 </h3>
+                 <p>{{ post.corpo }}</p>
+             </div>
+        </div>
+    {% if current_user == post.autor %}
+        <div>
+            <a href="{{ url_for('editar_post', post_id=post.id) }}"><button type="button" class="btn btn-primary m-2">Editar Perfil</button></a>
+            <a href="#" data-toggle="modal" data-target="#excluirpost"><button type="button" class="btn btn-danger m-2">Excluir Perfil</button></a>
+        </div>
+    {% endif %}
+    </div>
+
+<div class="modal fade" id="excluirpost" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmar Exclusão</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Você quer realmente excluir?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <form method="POST" action="{{ url_for('excluir_post', post_id=post.id) }}">
+            <button type="submit" class="btn btn-danger">Confirmar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
