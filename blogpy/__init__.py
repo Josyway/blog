@@ -22,14 +22,13 @@ login_manager.login_message = f"Por Favor, Realize o seu Login!"
 login_manager.login_message_category = 'alert-info'
 
 from blogpy import models
-
 engine = sqlalchemy.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 inspection = sqlalchemy.inspect(engine)
-if not inspection.has_table('usuario', schema="dbo"):
+if not inspection.has_table("usuario"):
     with app.app_context():
         database.drop_all()
         database.create_all()
-        print('Base de Dados Criada')
+        print("Base de Dados criada")
 else:
     print('Base de Dados já Criada')
 
