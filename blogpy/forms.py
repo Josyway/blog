@@ -54,4 +54,4 @@ class FormEditarPost(FlaskForm):
     titulo = StringField('Titulo do Post', validators=[DataRequired(), Length(2, 140)])
     corpo = TextAreaField('Escreva seu Post', validators=[DataRequired()])
     botao_submit_editarpost = SubmitField('Salvar Editar')
-
+    otao_submit_excluirpost = SubmitField('Excluir Poster')
